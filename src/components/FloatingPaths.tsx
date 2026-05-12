@@ -20,7 +20,7 @@ export function FloatingPaths({ position = 1 }: Props) {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <svg
-        className="h-full w-full text-slate-400"
+        className="h-full w-full text-slate-800"
         viewBox="0 0 696 316"
         fill="none"
         preserveAspectRatio="xMidYMid slice"
@@ -32,7 +32,7 @@ export function FloatingPaths({ position = 1 }: Props) {
             d={path.d}
             stroke="currentColor"
             strokeWidth={path.width}
-            strokeOpacity={0.05 + path.id * 0.015}
+            strokeOpacity={0.12 + path.id * 0.022}
             initial={{ pathLength: 0.3, opacity: 0.4 }}
             animate={{
               pathLength: 1,

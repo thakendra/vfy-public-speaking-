@@ -55,14 +55,13 @@ function CarouselTrack() {
   const dragStartPos = useRef(0)
   const isDragging = useRef(false)
   const isPaused = useRef(false)
+  const resumeTimer = useRef<ReturnType<typeof setTimeout>>()
   const rafRef = useRef<number>()
-
 
   const totalWidth = days.length * (CARD_WIDTH + CARD_GAP)
   const tripled = [...days, ...days, ...days]
 
   useEffect(() => {
-    // start in the middle set so we can scroll both directions
     posRef.current = totalWidth
 
     function tick() {
@@ -82,6 +81,7 @@ function CarouselTrack() {
   function onPointerDown(e: React.PointerEvent) {
     isDragging.current = true
     isPaused.current = true
+    if (resumeTimer.current) clearTimeout(resumeTimer.current)
     dragStartX.current = e.clientX
     dragStartPos.current = posRef.current
     ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
@@ -91,7 +91,6 @@ function CarouselTrack() {
     if (!isDragging.current) return
     const delta = dragStartX.current - e.clientX
     let next = dragStartPos.current + delta
-    // wrap
     while (next < totalWidth) next += totalWidth
     while (next >= totalWidth * 2) next -= totalWidth
     posRef.current = next
@@ -102,12 +101,14 @@ function CarouselTrack() {
 
   function onPointerUp() {
     isDragging.current = false
-    isPaused.current = false
+    // auto-resume after 2s
+    resumeTimer.current = setTimeout(() => { isPaused.current = false }, 2000)
   }
 
   return (
     <div
       className="relative cursor-grab overflow-hidden active:cursor-grabbing select-none"
+      style={{ touchAction: 'none' }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -134,7 +135,7 @@ function CarouselTrack() {
                   <div className={`relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${day.color} shadow-md`}>
                     <Icon className="h-5 w-5 text-white" strokeWidth={2.5} />
                   </div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-400">
+                  <span className="font-display text-sm font-bold tracking-[0.18em] text-[#C1121F]">
                     {day.day}
                   </span>
                 </div>
