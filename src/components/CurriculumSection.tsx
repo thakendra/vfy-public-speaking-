@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { BookOpen, MessageSquare, Mic2, Users, Wind } from 'lucide-react'
 
@@ -56,7 +56,7 @@ function CarouselTrack() {
   const isDragging = useRef(false)
   const isPaused = useRef(false)
   const rafRef = useRef<number>()
-  const [dragOffset, setDragOffset] = useState(0)
+
 
   const totalWidth = days.length * (CARD_WIDTH + CARD_GAP)
   const tripled = [...days, ...days, ...days]
