@@ -12,7 +12,7 @@ const FLIP_WORDS = ['Public Speaking', 'Presentation', 'Story', 'Leadership']
 export function HeroSection() {
   const [modalOpen, setModalOpen] = useState(false)
   return (
-    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-white pt-4 md:pt-6">
+    <section className="relative flex w-full items-start justify-center overflow-hidden bg-white pt-6 md:min-h-screen md:items-center md:pt-6">
       <div className="pointer-events-none absolute inset-0">
         <FloatingPaths position={1} />
         <FloatingPaths position={-1} />
@@ -20,12 +20,12 @@ export function HeroSection() {
         <div className="absolute bottom-0 right-0 h-[400px] w-[500px] rounded-full bg-[#C1121F]/05 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 pt-8 text-center md:px-6 md:pt-10">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-12 pt-4 text-center md:px-6 md:py-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4 }}
-          className="mx-auto max-w-5xl space-y-6"
+          className="mx-auto max-w-5xl space-y-4 md:space-y-6"
         >
           <motion.div
             initial={{ opacity: 0, y: -10 }}
